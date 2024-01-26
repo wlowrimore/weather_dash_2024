@@ -7,10 +7,13 @@ const CurrentWeather = ({ weatherData, city, state }) => {
       <div className="flex flex-col border border-neutral-400 bg-blue-100 rounded-sm shadow-lg shadow-neutral-300">
         {weatherData && (
           <>
-            {city && state && (
-              <h1 className="w-full py-2 px-4 text-xl text-blue-50 text-center font-bold border-b border-neutral-400 shadow-md shadow-neutral-400 bg-blue-500">
-                {city}, {state}
-              </h1>
+            {city && state && weatherData?.dt && (
+              <div className="w-full py-2 px-4 text-blue-50 text-center border-b border-neutral-400 shadow-md shadow-neutral-400 bg-blue-500">
+                <h1 className='font-bold text-xl'>
+                  {city}, {state}
+                </h1>
+                <p classname='text-xs'>{new Date(weatherData?.dt * 1000).toLocaleDateString()}</p>
+              </div>
             )}
             <div className="flex items-center justify-center mt-4 mx-4 bg-slate-600/40 border-2 border-white rounded-lg py-2">
               <div className="w-full h-[2.3rem] mx-2 px-4 rounded-lg flex items-center justify-between bg-white">

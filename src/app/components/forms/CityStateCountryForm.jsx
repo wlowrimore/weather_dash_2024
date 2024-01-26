@@ -43,6 +43,7 @@ const CityStateCountryForm = () => {
         <CurrentWeather weatherData={weatherData} city={city} state={state} />
       ) : (
         <div className='p-4'>
+
           <form className='flex flex-col space-y-2' onSubmit={handleFormSubmit}>
             <input
               type="text"
