@@ -1,35 +1,92 @@
-import Image from 'next/image';
-import React from 'react';
+import Image from "next/image";
+import React from "react";
 
 const CurrentWeather = ({ weatherData, city, state }) => {
   return (
-    <div className='w-full p-4'>
-      <div className='flex flex-col border border-neutral-400 bg-gray-100 rounded-sm shadow-lg shadow-neutral-300'>
+    <div className="w-full p-4">
+      <div className="flex flex-col border border-neutral-400 bg-blue-100 rounded-sm shadow-lg shadow-neutral-300">
         {weatherData && (
           <>
             {city && state && (
-              <h1 className='w-full py-2 px-4 text-2xl font-bold border-b border-neutral-400 shadow-md shadow-neutral-400 bg-orange-200'>{city}, {state}</h1>
+              <h1 className="w-full py-2 px-4 text-xl text-blue-50 text-center font-bold border-b border-neutral-400 shadow-md shadow-neutral-400 bg-blue-500">
+                {city}, {state}
+              </h1>
             )}
-            <div className='flex flex-col px-12 leading-snug text-center'>
-              <Image
-                src={`https://openweathermap.org/img/w/${weatherData?.weather[0].icon}.png`}
-                alt={weatherData?.weather[0].description}
-                width={80}
-                height={80}
-                className='mx-auto'
-                priority
-              />
-              <p className='mt-[-1.3rem]'>{weatherData?.weather[0].description}</p>
+            <div className="flex items-center justify-center mt-4 mx-4 bg-slate-600/40 border-2 border-white rounded-lg py-2">
+              <div className="w-full h-[2.3rem] mx-2 px-4 rounded-lg flex items-center justify-between bg-white">
+                <Image
+                  src={`https://openweathermap.org/img/w/${weatherData?.weather[0].icon}.png`}
+                  alt={weatherData?.weather[0].description}
+                  width={60}
+                  height={60}
+                  priority
+                />
+                <p className="w-full font-semibold text-end capitalize">
+                  {weatherData?.weather[0].description}
+                </p>
+              </div>
             </div>
 
-            <div className='space-y-1 my-2 p-4 flex flex-col'>
-              <p className='text-lg font-semibold'>Right Now: <span className='font-normal border border-white px-1 rounded bg-white'>{Math.round(weatherData?.main?.temp) ?? 'No temperature data'}&deg;</span></p>
-              <p className='text-lg font-semibold'>Feels Like: <span className='font-normal border border-white px-1 rounded bg-white'>{Math.round(weatherData?.main?.feels_like) ?? 'No temperature data'}&deg;</span></p>
-              <div className='flex flex-col'>
-                <p className='text-lg font-semibold'>High / Low:</p>
-                <div className='flex'>
-                  <p>{Math.round(weatherData?.main?.temp_max) ?? 'No temperature data'}&deg;</p>/
-                  <p>{Math.round(weatherData?.main?.temp_min) ?? 'No temperature data'}&deg;</p>
+            <div className="space-y-3 mb-2 p-4 flex flex-col">
+              <div className="flex justify-between">
+                <div className="flex flex-col items-center border-2 bg-slate-600/40 border-white rounded-lg shadow-md shadow-neutral-600 py-4 px-3">
+                  <p className="text-xl font-semibold text-white pb-2">
+                    Right Now
+                  </p>
+                  <p className="text-3xl font-semibold border border-white px-3 py-1 rounded-lg bg-white">
+                    {Math.round(weatherData?.main?.temp) ??
+                      "No temperature data"}
+                    &deg;
+                  </p>
+                </div>
+                <div className="flex flex-col items-center border-2 bg-slate-600/40 border-white rounded-lg shadow-md shadow-neutral-600 py-4 px-3">
+                  <p className="text-xl font-semibold text-white pb-2">
+                    Feels Like
+                  </p>
+                  <p className="text-3xl font-semibold border border-white px-3 py-1 rounded-lg bg-white">
+                    {Math.round(weatherData?.main?.feels_like) ??
+                      "No temperature data"}
+                    &deg;
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col items-center border-2 bg-slate-600/40 border-white rounded-lg shadow-md shadow-neutral-600 py-4 px-3">
+                <p className="text-2xl font-bold text-white pb-2">High / Low</p>
+                <div className="flex text-3xl font-semibold border border-white px-3 py-1 rounded-lg bg-white">
+                  <p>
+                    {Math.round(weatherData?.main?.temp_max) ??
+                      "No temperature data"}
+                    &deg;
+                  </p>
+                  &nbsp;/&nbsp;
+                  <p>
+                    {Math.round(weatherData?.main?.temp_min) ??
+                      "No temperature data"}
+                    &deg;
+                  </p>
+                </div>
+              </div>
+              <div className="mb-2 flex flex-col">
+                <div className="flex justify-center gap-4">
+                  <div className="w-full flex flex-col items-center border-2 bg-slate-600/40 border-white rounded-lg shadow-md shadow-neutral-600 py-4 px-3">
+                    <p className="text-xl font-bold text-white pb-2">Humidity</p>
+                    <p className="text-2xl font-semibold border border-white px-3 py-1 rounded-lg bg-white">
+                      {Math.round(weatherData?.main?.humidity) ??
+                        "No humidity data"}
+                      %
+                    </p>
+                  </div>
+                  {weatherData?.wind && (
+                    <div className="w-full flex flex-col items-center border-2 bg-slate-600/40 border-white rounded-lg shadow-md shadow-neutral-600 py-4 px-3">
+                      <p className="text-xl font-bold text-white pb-2">Wind</p>
+                      <p className="text-2xl font-semibold border border-white px-3 py-1 rounded-lg bg-white">
+                        {Math.round(weatherData?.wind?.speed) ??
+                          "No wind data"}
+                        mph
+                      </p>
+
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

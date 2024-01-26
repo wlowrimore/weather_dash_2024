@@ -39,27 +39,30 @@ const CityStateCountryForm = () => {
 
   return (
     <div className='w-full flex flex-col'>
-      <div className='p-4'>
-        <form className='flex flex-col space-y-2' onSubmit={handleFormSubmit}>
-          <input
-            type="text"
-            placeholder="City"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-200'
-          />
-          <input
-            type="text"
-            placeholder="State"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-            className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-200'
-          />
-          <CountriesDropdown onCountrySelect={handleCountrySelect} />
-          <button className='border border-neutral-400 bg-emerald-500/50 rounded-sm py-1 px-2' type="submit">Submit</button>
-        </form>
-      </div>
-      <CurrentWeather weatherData={weatherData} city={city} state={state} />
+      {weatherData && weatherData ? (
+        <CurrentWeather weatherData={weatherData} city={city} state={state} />
+      ) : (
+        <div className='p-4'>
+          <form className='flex flex-col space-y-2' onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              placeholder="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-200'
+            />
+            <input
+              type="text"
+              placeholder="State"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+              className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-200'
+            />
+            <CountriesDropdown onCountrySelect={handleCountrySelect} />
+            <button className='border border-neutral-400 bg-emerald-500/50 rounded-sm py-1 px-2' type="submit">Submit</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

@@ -38,7 +38,7 @@ const CountriesDropdown = ({ onCountrySelect }) => {
         <option value="" disabled>Select a country</option>
         {countries.map((country, index) => (
           <option key={index} value={country.code}>
-            <p>{country.name}</p>
+            {country.name}
           </option>
         ))}
       </select>
