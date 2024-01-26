@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import CountriesDropdown from "../ui/CountriesDropdown";
-import getCityLatLong from "@/app/libs/getCityWeather";
+import getCityLatLong from "@/app/libs/getCityLatLon";
+import getCityWeather from "@/app/libs/getCityWeather";
 
 const CityStateCountryForm = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');
-  const [cityStateCountryFormData, setCityStateCountryFormData] = useState({});
+  const [weatherData, setWeatherData] = useState(null);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -18,14 +19,20 @@ const CityStateCountryForm = () => {
       alert('Please enter a city and state, and select a country from the list');
       return;
     }
-    // setCityStateCountryFormData({ city, state, selectedCountry });
-    // console.log('City, State, and Selected Country', { cityStateCountryFormData });
     try {
       const latLongData = await getCityLatLong(city, state, selectedCountry)
+      // console.log('LatLong Data:', latLongData);
+      // const lat = latLongData[0].lat;
+      // const lon = latLongData[0].lon;
+      const { lat, lon } = latLongData[0];
+      // console.log("Latitude:", lat, "Longitude:", lon);
 
-      console.log('Latitude and Longitude Data:', latLongData);
+      const weatherData = await getCityWeather(lat, lon);
+      setWeatherData(weatherData);
+
+      console.log('Weather Data:', weatherData);
     } catch (error) {
-      console.error('Error fetching latitude and longitude data:', error);
+      console.error('Error fetching data:', error);
     }
   };
 
@@ -41,8 +48,14 @@ const CityStateCountryForm = () => {
         <CountriesDropdown onCountrySelect={handleCountrySelect} />
         <button className='mr-[0.5rem]' type="submit">Submit</button>
       </form>
+      <p>{city}, {state}</p>
+      {weatherData && (
+        <p>Temperature: {Math.round(weatherData?.main?.temp) ?? 'No temperature data'}</p>
+      )}
     </div>
   );
 };
 
 export default CityStateCountryForm;
+
+

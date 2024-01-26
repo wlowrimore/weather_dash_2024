@@ -1,7 +1,7 @@
 // src/app/page.js
 
 import CityStateCountryForm from "./components/forms/CityStateCountryForm";
-import getCityLatLong from "./libs/getCityWeather";
+import getCityLatLong from "./libs/getCityLatLon";
 export default async function Home() {
   const cityLatLong = await getCityLatLong();
   return (
