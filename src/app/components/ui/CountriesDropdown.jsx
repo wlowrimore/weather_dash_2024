@@ -27,13 +27,18 @@ const CountriesDropdown = ({ onCountrySelect }) => {
   };
 
   return (
-    <div>
-      <label htmlFor='countries'>Select a country:</label>
-      <select id="countries" onChange={handleCountryChange} value={selectedCountryCode}>
+    <div className='w-full'>
+      <label htmlFor='countries'></label>
+      <select
+        id="countries"
+        onChange={handleCountryChange}
+        value={selectedCountryCode}
+        className='w-full border border-neutral-400 rounded-sm p-1 outline-none bg-gray-200'
+      >
         <option value="" disabled>Select a country</option>
         {countries.map((country, index) => (
           <option key={index} value={country.code}>
-            {country.name}
+            <p>{country.name}</p>
           </option>
         ))}
       </select>

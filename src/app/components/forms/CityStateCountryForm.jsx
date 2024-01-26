@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import CountriesDropdown from "../ui/CountriesDropdown";
 import getCityLatLong from "@/app/libs/getCityLatLon";
 import getCityWeather from "@/app/libs/getCityWeather";
+import CurrentWeather from "../weatherDisplays/CurrentWeather";
 
 const CityStateCountryForm = () => {
   const [city, setCity] = useState('');
@@ -21,11 +22,7 @@ const CityStateCountryForm = () => {
     }
     try {
       const latLongData = await getCityLatLong(city, state, selectedCountry)
-      // console.log('LatLong Data:', latLongData);
-      // const lat = latLongData[0].lat;
-      // const lon = latLongData[0].lon;
       const { lat, lon } = latLongData[0];
-      // console.log("Latitude:", lat, "Longitude:", lon);
 
       const weatherData = await getCityWeather(lat, lon);
       setWeatherData(weatherData);
@@ -41,17 +38,28 @@ const CityStateCountryForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleFormSubmit}>
-        <input type="text" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
-        <input type="text" placeholder="State" value={state} onChange={(e) => setState(e.target.value)} />
-        <CountriesDropdown onCountrySelect={handleCountrySelect} />
-        <button className='mr-[0.5rem]' type="submit">Submit</button>
-      </form>
-      <p>{city}, {state}</p>
-      {weatherData && (
-        <p>Temperature: {Math.round(weatherData?.main?.temp) ?? 'No temperature data'}</p>
-      )}
+    <div className='w-full flex flex-col'>
+      <div className='p-4'>
+        <form className='flex flex-col space-y-2' onSubmit={handleFormSubmit}>
+          <input
+            type="text"
+            placeholder="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-200'
+          />
+          <input
+            type="text"
+            placeholder="State"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-200'
+          />
+          <CountriesDropdown onCountrySelect={handleCountrySelect} />
+          <button className='border border-neutral-400 bg-emerald-500/50 rounded-sm py-1 px-2' type="submit">Submit</button>
+        </form>
+      </div>
+      <CurrentWeather weatherData={weatherData} city={city} state={state} />
     </div>
   );
 };
