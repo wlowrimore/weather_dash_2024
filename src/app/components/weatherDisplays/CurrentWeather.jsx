@@ -1,11 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 const CurrentWeather = ({ weatherData, city, state }) => {
   return (
-    <div className="w-full h-screen p-4">
-      <div className="flex flex-col border border-neutral-400 bg-blue-100 rounded-sm shadow-lg shadow-neutral-300">
+    <div className="w-full">
+      <div className="flex flex-col border border-neutral-400 bg-blue-100 rounded shadow-lg shadow-neutral-300">
         {weatherData && (
           <>
             {city && state && weatherData?.dt && (
@@ -41,7 +40,7 @@ const CurrentWeather = ({ weatherData, city, state }) => {
                   <p className="text-3xl font-semibold border border-white px-3 py-1 rounded-lg bg-white">
                     {Math.round(weatherData?.main?.temp) ??
                       "No temperature data"}
-                    &deg;
+                    &deg;F
                   </p>
                 </div>
                 <div className="flex flex-col items-center border-2 bg-slate-600/40 border-white rounded-lg shadow-md shadow-neutral-600 py-4 px-3">
@@ -51,7 +50,7 @@ const CurrentWeather = ({ weatherData, city, state }) => {
                   <p className="text-3xl font-semibold border border-white px-3 py-1 rounded-lg bg-white">
                     {Math.round(weatherData?.main?.feels_like) ??
                       "No temperature data"}
-                    &deg;
+                    &deg;F
                   </p>
                 </div>
               </div>
@@ -61,13 +60,13 @@ const CurrentWeather = ({ weatherData, city, state }) => {
                   <p>
                     {Math.round(weatherData?.main?.temp_max) ??
                       "No temperature data"}
-                    &deg;
+                    &deg;F
                   </p>
                   &nbsp;/&nbsp;
                   <p>
                     {Math.round(weatherData?.main?.temp_min) ??
                       "No temperature data"}
-                    &deg;
+                    &deg;F
                   </p>
                 </div>
               </div>
@@ -97,9 +96,6 @@ const CurrentWeather = ({ weatherData, city, state }) => {
             </div>
           </>
         )}
-      </div>
-      <div className='text-center my-6 bg-blue-500 rounded-lg py-1'>
-        <Link href='#' className='text-white font-semibold'><h3>Five Day Forecast</h3></Link>
       </div>
     </div>
   );

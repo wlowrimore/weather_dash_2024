@@ -33,7 +33,7 @@ const CountriesDropdown = ({ onCountrySelect }) => {
         id="countries"
         onChange={handleCountryChange}
         value={selectedCountryCode}
-        className='w-full border border-neutral-400 rounded-sm p-1 outline-none bg-gray-200'
+        className='w-full border border-neutral-400 rounded-sm p-1 outline-none bg-gray-100'
       >
         <option value="" disabled>Select a country</option>
         {countries.map((country, index) => (

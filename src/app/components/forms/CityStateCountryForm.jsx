@@ -45,29 +45,29 @@ const CityStateCountryForm = () => {
   };
 
   return (
-    <div className='w-full h-screen flex flex-col justify-center'>
+    <div className='w-full flex flex-col justify-center'>
       {weatherData && forecastData ? (
         <>
           <CurrentWeather weatherData={weatherData} city={city} state={state} />
           <FiveDayForecast forecastData={forecastData} />
         </>
       ) : (
-        <div className='p-4'>
+        <div className='p-6 bg-blue-100 border border-neutral-700 rounded'>
 
-          <form className='flex flex-col space-y-2' onSubmit={handleFormSubmit}>
+          <form className='flex flex-col space-y-4' onSubmit={handleFormSubmit}>
             <input
               type="text"
               placeholder="City"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-200'
+              className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-100'
             />
             <input
               type="text"
               placeholder="State"
               value={state}
               onChange={(e) => setState(e.target.value)}
-              className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-200'
+              className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-100'
             />
             <CountriesDropdown onCountrySelect={handleCountrySelect} />
             <button className='border border-neutral-400 bg-emerald-500/50 rounded-sm py-1 px-2' type="submit">Submit</button>
