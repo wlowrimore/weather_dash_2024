@@ -5,12 +5,15 @@ import CountriesDropdown from "../ui/CountriesDropdown";
 import getCityLatLong from "@/app/libs/getCityLatLon";
 import getCityWeather from "@/app/libs/getCityWeather";
 import CurrentWeather from "../weatherDisplays/CurrentWeather";
+import getFiveDayForcast from "@/app/libs/getFiveDayForecast";
+import FiveDayForecast from "../weatherDisplays/FiveDayForecast";
 
 const CityStateCountryForm = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');
   const [weatherData, setWeatherData] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +30,11 @@ const CityStateCountryForm = () => {
       const weatherData = await getCityWeather(lat, lon);
       setWeatherData(weatherData);
 
+      const forecastData = await getFiveDayForcast(lat, lon);
+      setForecastData(forecastData);
+
       console.log('Weather Data:', weatherData);
+      console.log('Weather Forecast:', forecastData.list);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -38,9 +45,12 @@ const CityStateCountryForm = () => {
   };
 
   return (
-    <div className='w-full flex flex-col'>
-      {weatherData && weatherData ? (
-        <CurrentWeather weatherData={weatherData} city={city} state={state} />
+    <div className='w-full h-screen flex flex-col justify-center'>
+      {weatherData && forecastData ? (
+        <>
+          <CurrentWeather weatherData={weatherData} city={city} state={state} />
+          <FiveDayForecast forecastData={forecastData} />
+        </>
       ) : (
         <div className='p-4'>
 

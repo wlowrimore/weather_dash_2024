@@ -1,18 +1,20 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const CurrentWeather = ({ weatherData, city, state }) => {
   return (
-    <div className="w-full p-4">
+    <div className="w-full h-screen p-4">
       <div className="flex flex-col border border-neutral-400 bg-blue-100 rounded-sm shadow-lg shadow-neutral-300">
         {weatherData && (
           <>
             {city && state && weatherData?.dt && (
               <div className="w-full py-2 px-4 text-blue-50 text-center border-b border-neutral-400 shadow-md shadow-neutral-400 bg-blue-500">
+                <h1 className='text-3xl'>Current Weather</h1>
                 <h1 className='font-bold text-xl'>
                   {city}, {state}
                 </h1>
-                <p classname='text-xs'>{new Date(weatherData?.dt * 1000).toLocaleDateString()}</p>
+                <p className='text-xs'>{new Date(weatherData?.dt * 1000).toLocaleDateString()}</p>
               </div>
             )}
             <div className="flex items-center justify-center mt-4 mx-4 bg-slate-600/40 border-2 border-white rounded-lg py-2">
@@ -95,6 +97,9 @@ const CurrentWeather = ({ weatherData, city, state }) => {
             </div>
           </>
         )}
+      </div>
+      <div className='text-center my-6 bg-blue-500 rounded-lg py-1'>
+        <Link href='#' className='text-white font-semibold'><h3>Five Day Forecast</h3></Link>
       </div>
     </div>
   );

@@ -12,5 +12,4 @@ export default async function getCityWeather(lat, lon) {
     console.error('Error fetching weather data:', error)
     throw error;
   }
-
 }
