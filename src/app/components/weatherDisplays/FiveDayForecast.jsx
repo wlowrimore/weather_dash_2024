@@ -32,6 +32,7 @@ const FiveDayForecast = ({ forecastData, city, state }) => {
   console.log("Daily Target Forecasts:", dailyTargetForecasts);
 
   return (
+    // Five Day Forecast Header
     <div className="bg-bg-sunset bg-fixed bg-cover bg-no-repeat">
       {city && state && forecastData.list[0].dt && (
         <div className="w-full py-4 px-4 text-white text-center border-b border-t-4 border-neutral-400 shadow-sm shadow-neutral-200 bg-red-500/20 rounded-t">
@@ -44,7 +45,8 @@ const FiveDayForecast = ({ forecastData, city, state }) => {
           </div>
         </div>
       )}
-      <div className="rounded space-y-4 mx-6 my-12">
+      {/* Display the 5-day forecast */}
+      <div className="rounded space-y-4 mx-6 my-12 md:grid md:grid-cols-2 lg:grid-cols-4">
         {dailyTargetForecasts.map((forecast, index) => (
           <div
             key={index}
@@ -54,7 +56,6 @@ const FiveDayForecast = ({ forecastData, city, state }) => {
             <p className="text-3xl text-neutral-600 pt-4 font-semibold">
               {formatTimeOfDay(forecast.dt)}
             </p>
-            {/* <div> */}
             <div className="flex flex-col items-center">
               <Image
                 src={`https://openweathermap.org/img/w/${forecast.weather[0].icon}.png`}
@@ -68,13 +69,12 @@ const FiveDayForecast = ({ forecastData, city, state }) => {
                 {forecast.weather[0].description}
               </p>
             </div>
-            {/* </div> */}
             <div className="w-fullpt-3 flex flex-col items-center space-y-2">
               <p className="text-3xl text-neutral-600 font-bold">
                 {Math.round(forecast.main.temp)}&deg;F
               </p>
               <div className="w-full flex">
-                <div className="flex w-screen justify-evenly">
+                <div className="flex justify-evenly gap-10 md:gap-28 lg:gap-8 xl:gap-32">
                   <div className="flex flex-col items-center p-2">
                     <h1 className="">Humidity</h1>
                     <p>{Math.round(forecast.main.humidity)}%</p>

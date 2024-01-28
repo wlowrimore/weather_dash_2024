@@ -5,49 +5,56 @@ import CountriesDropdown from "../ui/CountriesDropdown";
 import getCityLatLong from "@/app/libs/getCityLatLon";
 import getCityWeather from "@/app/libs/getCityWeather";
 import CurrentWeather from "../weatherDisplays/CurrentWeather";
-import getFiveDayForcast from "@/app/libs/getFiveDayForecast";
+import getFiveDayForecast from "@/app/libs/getFiveDayForecast";
 import FiveDayForecast from "../weatherDisplays/FiveDayForecast";
 
 const CityStateCountryForm = () => {
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState(null);
-  const [formIsVisible, setFormIsVisible] = useState(false);
-  const [currentTimeOfDay, setCurrentTimeOfDay] = useState();
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [weatherData, setWeatherData] = useState('');
+  const [forecastData, setForecastData] = useState('');
+  const [isFormVisible, setIsFormVisible] = useState(true);
+  const [currentTimeOfDay, setCurrentTimeOfDay] = useState("");
 
   useEffect(() => {
     const getTimeOfDay = () => {
       const currentTime = new Date().toLocaleTimeString();
-      setCurrentTimeOfDay(currentTime)
-    }
-    getTimeOfDay()
-  }, [])
-
+      setCurrentTimeOfDay(currentTime);
+    };
+    getTimeOfDay();
+  }, []);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log({ city, state, selectedCountry });
 
     if (!city || !state || !selectedCountry) {
-      alert('Please enter a city and state, and select a country from the list');
+      alert(
+        "Please enter a city and state, and select a country from the list"
+      );
       return;
     }
     try {
-      const latLongData = await getCityLatLong(city, state, selectedCountry)
+      const latLongData = await getCityLatLong(
+        city,
+        state,
+        selectedCountry
+      );
       const { lat, lon } = latLongData[0];
 
       const weatherData = await getCityWeather(lat, lon);
       setWeatherData(weatherData);
 
-      const forecastData = await getFiveDayForcast(lat, lon);
+      const forecastData = await getFiveDayForecast(lat, lon);
       setForecastData(forecastData);
 
-      console.log('Weather Data:', weatherData);
-      console.log('Weather Forecast:', forecastData.list);
+      console.log("Weather Data:", weatherData);
+      console.log("Weather Forecast:", forecastData.list);
+
+      // Toggle the form visibility after successfully fetching data
+      setIsFormVisible(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -55,77 +62,76 @@ const CityStateCountryForm = () => {
     setSelectedCountry(countryCode);
   };
 
-  const handleOnClick = () => {
-    setFormIsVisible(!formIsVisible);
-    console.log('Form Is Visible:', formIsVisible);
-  }
+  const handleNewSearch = () => {
+    // Toggle the form visibility when "New Search" is clicked
+    setIsFormVisible(true);
+    // Reset weather and forecast data
+    setWeatherData('');
+    setForecastData('');
+  };
 
   return (
-    <div className='w-full flex flex-col justify-center'>
-      <div className={`${formIsVisible ? 'hidden' : 'flex flex-col pt-36 items-center bg-bg-clouds bg-no-repeat bg-cover bg-fixed h-screen text-gray-300'}`}>
-        <div className='flex flex-col mx-8'>
-          <h1 className='text-5xl text-start mb-1'>MyWeather</h1>
-          <h2 className='text-xl tracking-wide'>Enter a city, state or province, and country to find the current weather conditions and five day forecast.</h2>
-          <div className='w-full flex justify-end my-8'>
-            <h3 onClick={handleOnClick} className='w-full text-center text-xl py-2 px-3 mr-4 bg-red-600/30 rounded-lg'>Get Started</h3>
-          </div>
+    <div className="w-full">
+      <p className="fixed z-10 top-0 left-0 text-white text-sm xl:text-3xl xl:py-3 xl:pr-6 xl:pl-4 xl:rounded-r-lg bg-gray-900/30 rounded-r-full py-1 pl-1 pr-2">
+        {currentTimeOfDay}
+      </p>
+      {isFormVisible ? (
+        <div className="w-full h-screen p-6 rounded-lg flex flex-col items-center justify-center bg-bg-clouds bg-no-repeat bg-cover bg-fixed">
+          <form
+            className="flex flex-col bg-white/10 px-4 py-6 rounded-lg"
+            onSubmit={handleFormSubmit}
+          >
+            <div className="text-white space-y-[-2rem] mb-6">
+              <h1 className="text-2xl font-semibold mb-6">WELCOME TO</h1>
+              <h1 className="text-4xl font-semibold mb-6">MyWeather</h1>
+            </div>
+            <div className="mb-4 flex flex-col">
+              <h2 className="text-white font-semibold">City</h2>
+              <input
+                type="text"
+                placeholder="City"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className="border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-100"
+                required
+              />
+            </div>
+            <div className="mb-4 flex flex-col">
+              <h2 className="text-white font-semibold">State / Province</h2>
+              <input
+                type="text"
+                placeholder="State"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                className="border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-100"
+                required
+              />
+            </div>
+            <h2 className="text-white font-semibold">Country</h2>
+            <CountriesDropdown onCountrySelect={handleCountrySelect} />
+            <button className="text-white bg-cyan-900/80 border border-neutral-400 rounded-sm py-1 px-2 mt-6" type="submit">
+              Submit
+            </button>
+          </form>
         </div>
-      </div>
-      {weatherData && forecastData ? (
-        <>
+      ) : (
+        <div className="w-full flex flex-col justify-center">
           <CurrentWeather
             weatherData={weatherData}
-            city={city} state={state}
+            city={city}
+            state={state}
             currentTimeOfDay={currentTimeOfDay}
+            onNewSearch={handleNewSearch}
           />
           <FiveDayForecast
             forecastData={forecastData}
             city={city}
             state={state}
           />
-        </>
-      ) : (
-        <>
-          {formIsVisible && (
-            <div className='w-full h-screen p-6 rounded-lg flex flex-col items-center justify-center bg-bg-sunny bg-no-repeat bg-cover bg-fixed'>
-              <form className='flex flex-col bg-white/40 px-4 py-6 rounded-lg' onSubmit={handleFormSubmit}>
-                <div className='space-y-[-2rem] mb-6'>
-                  <h1 className='text-2xl font-semibold mb-6'>WELCOME TO</h1>
-                  <h1 className='text-4xl font-semibold mb-6'>MyWeather</h1>
-                </div>
-                <div className='mb-4 flex flex-col'>
-                  <h2 className='text-gray-600 font-semibold'>City</h2>
-                  <input
-                    type="text"
-                    placeholder="City"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-100'
-                  />
-                </div>
-                <div className='mb-4 flex flex-col'>
-                  <h2 className='text-gray-600 font-semibold'>State / Province</h2>
-                  <input
-                    type="text"
-                    placeholder="State"
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
-                    className='border border-neutral-400 rounded-sm py-1 px-2 outline-none bg-gray-100'
-                  />
-                </div>
-                <h2 className="text-gray-600 font-semibold">Country</h2>
-                <CountriesDropdown onCountrySelect={handleCountrySelect} />
-                <button className='border border-neutral-400 bg-emerald-500/50 rounded-sm py-1 px-2 mt-6' type="submit">Submit</button>
-              </form>
-            </div>
-          )}
-          {/* </div> */}
-        </>
+        </div>
       )}
     </div>
   );
 };
 
 export default CityStateCountryForm;
-
-
