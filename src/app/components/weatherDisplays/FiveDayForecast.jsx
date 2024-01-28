@@ -34,7 +34,7 @@ const FiveDayForecast = ({ forecastData, city, state }) => {
   return (
     <div className="bg-bg-sunset bg-fixed bg-cover bg-no-repeat">
       {city && state && forecastData.list[0].dt && (
-        <div className="w-full py-2 px-4 text-white text-center border-b border-neutral-400 shadow-sm shadow-neutral-200 bg-red-500/20 rounded-t">
+        <div className="w-full py-4 px-4 text-white text-center border-b border-t-4 border-neutral-400 shadow-sm shadow-neutral-200 bg-red-500/20 rounded-t">
           <h1 className='text-3xl'>5-Day Forecast</h1>
           <h1 className='font-bold text-xl'>
             {city}, {state}

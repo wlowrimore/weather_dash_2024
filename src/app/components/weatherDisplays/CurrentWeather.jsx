@@ -8,7 +8,7 @@ const CurrentWeather = ({ weatherData, city, state, currentTime }) => {
         {weatherData && (
           <>
             {city && state && weatherData?.dt && (
-              <div className="w-full py-2 px-4 text-white text-center border-b border-neutral-400 shadow-sm shadow-neutral-200 bg-blue-900/30">
+              <div className="w-full py-4 px-4 text-white text-center border-b border-t-2 border-neutral-400 shadow-sm shadow-neutral-200 bg-blue-900/30">
                 <h1 className='text-3xl'>Current Weather</h1>
                 <h1 className='font-bold text-xl'>
                   {city}, {state}

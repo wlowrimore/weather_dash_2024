@@ -62,7 +62,7 @@ const CityStateCountryForm = () => {
 
   return (
     <div className='w-full flex flex-col justify-center'>
-      <div className={`${formIsVisible ? 'hidden' : 'flex flex-col pt-32 items-center bg-bg-clouds bg-no-repeat bg-cover bg-fixed h-screen text-gray-300'}`}>
+      <div className={`${formIsVisible ? 'hidden' : 'flex flex-col pt-36 items-center bg-bg-clouds bg-no-repeat bg-cover bg-fixed h-screen text-gray-300'}`}>
         <div className='flex flex-col mx-8'>
           <h1 className='text-5xl text-start mb-1'>MyWeather</h1>
           <h2 className='text-xl tracking-wide'>Enter a city, state or province, and country to find the current weather conditions and five day forecast.</h2>
