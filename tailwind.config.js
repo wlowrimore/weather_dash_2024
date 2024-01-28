@@ -8,6 +8,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
+        "bg-night-sky": "url('/images/night_sky.webp')",
+        "bg-sunset": "url('/images/sunset.webp')",
+        "bg-sunny": "url('/images/sunny_skies.webp')",
         "bg-clouds": "url('/images/clouds_lightening.webp')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
