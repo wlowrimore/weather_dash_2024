@@ -1,9 +1,11 @@
 import Image from "next/image";
 import React from "react";
 
-const CurrentWeather = ({ weatherData, city, state, currentTime }) => {
+const CurrentWeather = ({ weatherData, city, state, currentTimeOfDay }) => {
+  console.log("Current Time in CurrentWeather:", currentTimeOfDay);
+
   return (
-    <div className={`w-full h-screen flex justify-center ${currentTime >= 18 || currentTime < 6 ? 'bg-bg-night-sky' : 'bg-bg-sunny'} bg-cover bg-fixed bg-no-repeat`}>
+    <div className={`w-full h-screen flex justify-center ${currentTimeOfDay >= 18 || currentTimeOfDay < 6 ? 'bg-bg-night-sky' : 'bg-bg-sunny'} bg-cover bg-fixed bg-no-repeat`}>
       <div className="w-full flex flex-col bg-white/30 rounded shadow-lg shadow-neutral-300">
         {weatherData && (
           <>
@@ -32,7 +34,7 @@ const CurrentWeather = ({ weatherData, city, state, currentTime }) => {
 
               <div className="space-y-3 mb-2 p-4 flex flex-col">
                 <div className="flex justify-between">
-                  <div className="flex flex-col items-center bg-blue-900/20 rounded-lg shadow-sm shadow-neutral-500 py-4 px-3">
+                  <div className="flex flex-col items-center bg-blue-900/20 rounded-lg shadow-sm shadow-neutral-500 p-4">
                     <p className="text-xl font-semibold text-white pb-2">
                       Right Now
                     </p>
@@ -42,7 +44,7 @@ const CurrentWeather = ({ weatherData, city, state, currentTime }) => {
                       &deg;F
                     </p>
                   </div>
-                  <div className="flex flex-col items-center bg-blue-900/20 rounded-lg shadow-sm shadow-neutral-500 py-4 px-3">
+                  <div className="flex flex-col items-center bg-blue-900/20 rounded-lg shadow-sm shadow-neutral-500 p-4">
                     <p className="text-xl font-semibold text-white pb-2">
                       Feels Like
                     </p>
@@ -96,7 +98,7 @@ const CurrentWeather = ({ weatherData, city, state, currentTime }) => {
             </div>
           </>
         )}
-        <div className='text-xs mx-10 absolute bottom-6'>
+        <div className='text-xs mx-10 absolute bottom-0'>
           <h4>This app is made possible by the openweathermap.com api and photography by contributors from unsplash.com.</h4>
         </div>
       </div>

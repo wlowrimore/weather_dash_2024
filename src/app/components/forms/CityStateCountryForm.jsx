@@ -15,14 +15,14 @@ const CityStateCountryForm = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState(null);
   const [formIsVisible, setFormIsVisible] = useState(false);
-  const [currentTime, setCurrentTime] = useState(null);
+  const [currentTimeOfDay, setCurrentTimeOfDay] = useState();
 
   useEffect(() => {
-    const getCurrentTime = () => {
+    const getTimeOfDay = () => {
       const currentTime = new Date().toLocaleTimeString();
-      console.log('Current Time:', currentTime);
+      setCurrentTimeOfDay(currentTime)
     }
-    getCurrentTime()
+    getTimeOfDay()
   }, [])
 
 
@@ -73,8 +73,16 @@ const CityStateCountryForm = () => {
       </div>
       {weatherData && forecastData ? (
         <>
-          <CurrentWeather weatherData={weatherData} city={city} state={state} currentTime={currentTime} />
-          <FiveDayForecast forecastData={forecastData} city={city} state={state} />
+          <CurrentWeather
+            weatherData={weatherData}
+            city={city} state={state}
+            currentTimeOfDay={currentTimeOfDay}
+          />
+          <FiveDayForecast
+            forecastData={forecastData}
+            city={city}
+            state={state}
+          />
         </>
       ) : (
         <>
