@@ -7,6 +7,7 @@ import getCityWeather from "@/app/libs/getCityWeather";
 import CurrentWeather from "../weatherDisplays/CurrentWeather";
 import getFiveDayForecast from "@/app/libs/getFiveDayForecast";
 import FiveDayForecast from "../weatherDisplays/FiveDayForecast";
+import RealTimeClock from "../ui/RealTimeClock";
 
 const CityStateCountryForm = () => {
   const [city, setCity] = useState("");
@@ -19,14 +20,15 @@ const CityStateCountryForm = () => {
 
   useEffect(() => {
     const getTimeOfDay = () => {
-      const currentTime = new Date().toLocaleTimeString();
-      setCurrentTimeOfDay(currentTime);
+      const currentHour = new Date().getHours();
+      setCurrentTimeOfDay(currentHour);
     };
     getTimeOfDay();
   }, []);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    console.log("clicked")
 
     if (!city || !state || !selectedCountry) {
       alert(
@@ -72,9 +74,9 @@ const CityStateCountryForm = () => {
 
   return (
     <div className="w-full">
-      <p className="fixed z-10 top-0 left-0 text-white text-sm xl:text-3xl xl:py-3 xl:pr-6 xl:pl-4 xl:rounded-r-lg bg-gray-900/30 rounded-r-full py-1 pl-1 pr-2">
-        {currentTimeOfDay}
-      </p>
+
+      <RealTimeClock />
+
       {isFormVisible ? (
         <div className="w-full h-screen p-6 rounded-lg flex flex-col items-center justify-center bg-bg-clouds bg-no-repeat bg-cover bg-fixed">
           <form

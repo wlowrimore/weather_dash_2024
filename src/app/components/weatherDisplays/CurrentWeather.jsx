@@ -15,7 +15,7 @@ const CurrentWeather = ({ weatherData, city, state, currentTimeOfDay, onNewSearc
           alt="New Search"
           width={16}
           height={16}
-          className="cursor-pointer py-1 xl:w-[20%] xl:h-[20%]"
+          className="cursor-pointer py-1 xl:w-[20%] xl:h-[20%] hover:animate-spin"
         />
         <p className='text-sm xl:text-xl px-1 py-1'>new search</p>
       </div>
