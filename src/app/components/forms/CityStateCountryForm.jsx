@@ -17,6 +17,7 @@ const CityStateCountryForm = () => {
   const [forecastData, setForecastData] = useState('');
   const [isFormVisible, setIsFormVisible] = useState(true);
   const [currentTimeOfDay, setCurrentTimeOfDay] = useState("");
+  const [Error, setError] = useState('');
 
   useEffect(() => {
     const getTimeOfDay = () => {
@@ -28,7 +29,6 @@ const CityStateCountryForm = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("clicked")
 
     if (!city || !state || !selectedCountry) {
       alert(
@@ -56,6 +56,7 @@ const CityStateCountryForm = () => {
       // Toggle the form visibility after successfully fetching data
       setIsFormVisible(false);
     } catch (error) {
+      setError('Your search could not be found. Please check your spelling and try again.');
       console.error("Error fetching data:", error);
     }
   };
@@ -79,6 +80,7 @@ const CityStateCountryForm = () => {
 
       {isFormVisible ? (
         <div className="w-full h-screen p-6 rounded-lg flex flex-col items-center justify-center bg-bg-clouds bg-no-repeat bg-cover bg-fixed">
+          {Error && <p className="absolute z-10 right-0 top-8 w-full md:w-1/2 lg:w-[45%] xl:w-[33%] 2xl:w-[25%] md:top-16 lg:top-20 2xl:top-36 2xl:right-[43.5rem] md:right-44 lg:right-[17rem] xl:right-[29rem] py-2 px-6 rounded-lg text-xl md:text-2xl text-red-500 mb-4">{Error}</p>}
           <form
             className="flex flex-col bg-white/10 px-4 py-6 rounded-lg"
             onSubmit={handleFormSubmit}
@@ -111,7 +113,7 @@ const CityStateCountryForm = () => {
             </div>
             <h2 className="text-white font-semibold">Country</h2>
             <CountriesDropdown onCountrySelect={handleCountrySelect} />
-            <button className="text-white bg-cyan-900/80 border border-neutral-400 rounded-sm py-1 px-2 mt-6" type="submit">
+            <button className="text-white bg-cyan-900/80 border border-neutral-400 rounded-sm py-1 px-2 mt-6 transition-all hover:scale-95 hover:bg-cyan-800/90 duration-300" type="submit">
               Submit
             </button>
           </form>

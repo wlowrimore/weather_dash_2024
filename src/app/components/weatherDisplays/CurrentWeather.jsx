@@ -20,7 +20,7 @@ const CurrentWeather = ({ weatherData, city, state, currentTimeOfDay, onNewSearc
         <p className='text-sm xl:text-xl px-1 py-1'>new search</p>
       </div>
       <div className={`w-full h-screen flex justify-center ${currentTimeOfDay >= 18 || currentTimeOfDay < 6 ? 'bg-bg-night-sky' : 'bg-bg-sunny'} bg-cover bg-fixed bg-no-repeat`}>
-        <div className="w-full flex flex-col bg-white/30 rounded shadow-lg shadow-neutral-300">
+        <div className="w-full flex flex-col rounded shadow-lg shadow-neutral-300">
           {/* Display Current Weather */}
           {weatherData && (
             <>
@@ -35,9 +35,9 @@ const CurrentWeather = ({ weatherData, city, state, currentTimeOfDay, onNewSearc
                 </div>
               )}
               {/* Display Current Weather */}
-              <div className='w-full flex justify-center xl:my-24'>
+              <div className='w-full flex justify-center md:my-44 xl:my-8 2xl:my-24'>
 
-                <div className='mx-6 xl:w-1/2 xl:bg-white/40 xl:rounded-lg xl:shadow-lg shadow-neutral-600'>
+                <div className='mx-6 md:w-screen xl:w-1/2 lg:p-4 2xl:p-12 lg:mt-0 md:bg-white/40 xl:rounded-lg xl:shadow-lg shadow-neutral-600'>
                   <div className="flex flex-col items-center justify-center mb-2">
                     <Image
                       src={`https://openweathermap.org/img/w/${weatherData?.weather[0].icon}.png`}
@@ -52,8 +52,8 @@ const CurrentWeather = ({ weatherData, city, state, currentTimeOfDay, onNewSearc
                   </div>
 
                   <div className="space-y-3 mb-2 p-4 flex flex-col">
-                    <div className="flex justify-between xl:gap-4">
-                      <div className="xl:w-full flex flex-col items-center bg-blue-900/20 rounded-lg shadow-sm shadow-neutral-500 p-4">
+                    <div className="flex justify-between md:gap-4 xl:gap-4">
+                      <div className="md:w-full xl:w-full flex flex-col items-center bg-blue-900/20 rounded-lg shadow-sm shadow-neutral-500 p-4">
                         <p className="text-xl font-semibold text-white xl:text-gray-800 pb-2">
                           Right Now
                         </p>
