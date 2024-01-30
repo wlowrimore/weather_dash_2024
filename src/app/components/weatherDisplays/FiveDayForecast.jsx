@@ -2,8 +2,6 @@ import Image from "next/image";
 import React from "react";
 
 const FiveDayForecast = ({ forecastData, city, state }) => {
-  console.log("Forecast Data:", forecastData); // Log the entire forecastData for reference
-
   const targetHrs = [6, 12, 18, 21];
 
   // Extract the list of forecasts from the forecastData
@@ -28,8 +26,6 @@ const FiveDayForecast = ({ forecastData, city, state }) => {
     const formattedHours = hours % 12 || 12;
     return `${formattedHours} ${ampm}`;
   };
-
-  console.log("Daily Target Forecasts:", dailyTargetForecasts);
 
   return (
     // Five Day Forecast Header

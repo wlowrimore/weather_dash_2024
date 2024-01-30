@@ -31,9 +31,6 @@ const CityStateCountryForm = () => {
     e.preventDefault();
 
     if (!city || !state || !selectedCountry) {
-      alert(
-        "Please enter a city and state, and select a country from the list"
-      );
       return;
     }
     try {
@@ -49,9 +46,6 @@ const CityStateCountryForm = () => {
 
       const forecastData = await getFiveDayForecast(lat, lon);
       setForecastData(forecastData);
-
-      console.log("Weather Data:", weatherData);
-      console.log("Weather Forecast:", forecastData.list);
 
       // Toggle the form visibility after successfully fetching data
       setIsFormVisible(false);
@@ -75,9 +69,7 @@ const CityStateCountryForm = () => {
 
   return (
     <div className="w-full">
-
       <RealTimeClock />
-
       {isFormVisible ? (
         <div className="w-full h-screen p-6 rounded-lg flex flex-col items-center justify-center bg-bg-clouds bg-no-repeat bg-cover bg-fixed">
           {Error && <p className="absolute z-10 right-0 top-8 w-full md:w-1/2 lg:w-[45%] xl:w-[33%] 2xl:w-[25%] md:top-16 lg:top-20 2xl:top-36 2xl:right-[43.5rem] md:right-44 lg:right-[17rem] xl:right-[29rem] py-2 px-6 rounded-lg text-xl md:text-2xl text-red-500 mb-4">{Error}</p>}
@@ -134,6 +126,9 @@ const CityStateCountryForm = () => {
           />
         </div>
       )}
+      <div className='text-orange-500 text-xs w-full md:text-center mx-4 absolute bottom-2'>
+        <h4 className='w-full'><em className='font-light'>&dagger;</em>&nbsp;My Weather is powered by the openweathermap api. All photography provided by unsplash.com contributors.</h4>
+      </div>
     </div>
   );
 };
