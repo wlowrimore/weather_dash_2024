@@ -1,5 +1,5 @@
 export default async function getCityLatLong(city, state, countryCode) {
-  const API_KEY = process.env.NEXT_WEATHER_API_KEY;
+  const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
   const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${countryCode}&appid=${API_KEY}`);
 
