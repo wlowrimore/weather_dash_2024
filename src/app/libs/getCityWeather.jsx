@@ -1,6 +1,7 @@
 export default async function getCityWeather(lat, lon) {
+  const API_KEY = process.env.NEXT_WEATHER_API_KEY;
   try {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=cb87d742151d896a30603c77f66b0bef`);
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`);
 
     if (!response.ok) {
       console.error('Error Response:', response)
